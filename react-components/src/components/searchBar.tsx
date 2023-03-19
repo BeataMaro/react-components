@@ -1,10 +1,10 @@
-import React from 'react';
+import { Component } from 'react';
 
 interface SearchBarState {
   searchQuery: string;
 }
 
-class SearchBar extends React.Component<object, SearchBarState> {
+class SearchBar extends Component<object, SearchBarState> {
   constructor(props: object) {
     super(props);
     this.state = {
@@ -26,6 +26,9 @@ class SearchBar extends React.Component<object, SearchBarState> {
 
   handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    this.setState({
+      searchQuery: '',
+    });
   }
 
   render() {
