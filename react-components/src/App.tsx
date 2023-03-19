@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import SearchBar from './components/searchBar';
 import Header from './components/header';
+import Card from './components/card';
 import './App.css';
 
 class App extends Component {
@@ -9,6 +10,7 @@ class App extends Component {
       <div>
         <Header />
         <SearchBar />
+        <Card />
       </div>
     );
   }
