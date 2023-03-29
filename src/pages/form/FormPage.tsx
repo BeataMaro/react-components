@@ -153,14 +153,26 @@ export default class Form extends Component<object, FormState> {
           <input type="submit" value="submit"></input>
         </form>
         <div className="users-container">
-          {this.state.formData.map(({ name, image }, idx) => (
-            <div className="userCard" key={idx}>
-              <>
-                <h1>{name}</h1>
-                {image && <img src={URL.createObjectURL(image)} alt={name}></img>}
-              </>
-            </div>
-          ))}
+          {this.state.formData.map(
+            ({ name, image, favoriteColor, isStudent, birthdate, gender }, idx) => (
+              <div className="userCard" key={idx}>
+                <>
+                  <h1>{name}</h1>
+                  {image && <img src={URL.createObjectURL(image)} alt={name}></img>}
+                  <p>
+                    Favorite color: <i>{favoriteColor}</i>
+                  </p>
+                  <p>
+                    Birth date: <i>{birthdate}</i>
+                  </p>
+                  <p>
+                    Gender: <i>{gender}</i>
+                  </p>
+                  <p>Student: {isStudent ? <i>YES</i> : <i>NO</i>}</p>
+                </>
+              </div>
+            )
+          )}
         </div>
       </>
     );
