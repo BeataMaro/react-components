@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import SearchBar from './components/searchBar';
-import Header from './components/header';
-import Card from './components/card';
+import { Outlet } from 'react-router-dom';
+import Header from './components/Header';
 import './App.css';
 
 class App extends Component {
@@ -9,8 +8,7 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <SearchBar />
-        <Card />
+        <Outlet />
       </div>
     );
   }

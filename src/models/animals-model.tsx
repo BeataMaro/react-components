@@ -1,8 +1,8 @@
-export interface Ianimals {
+export interface IAnimal {
   id: number;
   name: string;
-  personality: string;
-  weight: number;
-  longevity: number;
+  dato1: string;
+  dato2: string;
+  dato3: string;
   image: string;
 }

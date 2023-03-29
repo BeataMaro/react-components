@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-export default class about extends Component {
+export default class About extends Component {
   render() {
     return (
       <div>
