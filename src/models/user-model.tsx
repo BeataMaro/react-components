@@ -6,5 +6,5 @@ export interface IUser {
   favoriteColor: string;
   isStudent: boolean;
   gender: gender;
-  image: File;
+  image: File | null;
 }

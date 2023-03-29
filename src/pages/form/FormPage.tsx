@@ -54,7 +54,7 @@ export default class Form extends Component<object, FormState> {
       gender: this.genderInput.current!.value,
       image: this.imageInput.current!.files![0],
     };
-
+    console.log(formData.image?.name);
     //*****
     // Validate form data
     const errors: FormErrors = {};
@@ -121,10 +121,17 @@ export default class Form extends Component<object, FormState> {
   render() {
     return (
       <>
-        <form className="register-form">
-          <input type="text" name="name" ref={this.nameInput}></input>
-          <input type="date" name="birthdate" ref={this.birthdateInput}></input>
-          <select name="favColor" ref={this.favoriteColorInput}>
+        <form
+          className="register-form"
+          action="POST"
+          name="register-form"
+          onSubmit={(e) => this.handleSubmit(e)}
+        >
+          <input type="text" name="name" ref={this.nameInput} required></input>
+          <input type="date" name="birthdate" ref={this.birthdateInput} required></input>
+          <label htmlFor="favColor">Favorite color</label>
+          <select name="favColor" ref={this.favoriteColorInput} id="favColor" required>
+            <option>---</option>
             <option value="blue">blue</option>
             <option value="green">green</option>
             <option value="yellow">yellow</option>
@@ -146,9 +153,10 @@ export default class Form extends Component<object, FormState> {
           <input type="submit" value="submit"></input>
         </form>
         <div className="users-container">
-          {this.state.formData.map(({ name }, idx) => (
+          {this.state.formData.map(({ name, image }, idx) => (
             <div className="userCard" key={idx}>
               <h1>{name}</h1>
+              {/* <img src={image} alt="name"></img> */}
             </div>
           ))}
         </div>
