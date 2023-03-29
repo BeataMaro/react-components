@@ -4,11 +4,11 @@ import { FormErrors } from 'models/form-errors-model';
 import { IUser } from 'models/user-model';
 
 import './Form.css';
+import UserCard from '../../components/UserCard/UserCard';
 
 interface FormState {
   formData: FormData[];
   formErrors: FormErrors;
-  isSaved: boolean;
   selectedFile: File | null;
   users: IUser[];
 }
@@ -27,7 +27,6 @@ export default class Form extends Component<object, FormState> {
     this.state = {
       formData: [],
       formErrors: {},
-      isSaved: false,
       selectedFile: null,
       users: [],
     };
@@ -35,7 +34,6 @@ export default class Form extends Component<object, FormState> {
     this.handleFileChange = this.handleFileChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderFormError = this.renderFormError.bind(this);
-    this.renderFormCard = this.renderFormCard.bind(this);
   }
 
   handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,8 +52,6 @@ export default class Form extends Component<object, FormState> {
       gender: this.genderInput.current!.value,
       image: this.imageInput.current!.files?.[0] || null,
     };
-    console.log(formData.image?.name);
-    //*****
     // Validate form data
     const errors: FormErrors = {};
     if (!formData.name) {
@@ -86,15 +82,17 @@ export default class Form extends Component<object, FormState> {
       this.setState({
         formData: updatedFormData,
         formErrors: {},
-        isSaved: true,
       });
+
+      this.state.users.push(formData);
+
+      console.log(this.state.users);
 
       // Clear form inputs
       this.nameInput.current!.value = '';
       this.birthdateInput.current!.value = '';
       this.favoriteColorInput.current!.value = '';
       this.isStudentInput.current!.checked = false;
-      this.genderInput.current!.checked = false;
       this.imageInput.current!.value = '';
     }
   }
@@ -103,20 +101,6 @@ export default class Form extends Component<object, FormState> {
     const error = this.state.formErrors[field];
     return error ? <span className="error">{error}</span> : null;
   }
-  renderFormCard(formData: FormData, index: number) {
-    return (
-      <div className="card" key={index}>
-        <h2>{formData.name}</h2>
-        <p>{formData.birthdate}</p>
-        <p>{formData.favoriteColor}</p>
-        <p>{formData.isStudent ? 'Student' : 'Not a student'}</p>
-        <p>{formData.gender}</p>
-        {formData.image && <img src={URL.createObjectURL(formData.image)} alt=""></img>}
-      </div>
-    );
-  }
-
-  //***** */
 
   render() {
     return (
@@ -144,33 +128,26 @@ export default class Form extends Component<object, FormState> {
             type="radio"
             name="gender"
             ref={this.genderInput}
-            value="woman"
+            value="Woman"
             defaultChecked
           ></input>
           <label htmlFor="man">Man</label>
-          <input id="man" type="radio" name="gender" ref={this.genderInput} value="man"></input>
+          <input id="man" type="radio" name="gender" ref={this.genderInput} value="Man"></input>
           <input type="file" ref={this.imageInput} onChange={this.handleFileChange}></input>
           <input type="submit" value="submit"></input>
         </form>
         <div className="users-container">
-          {this.state.formData.map(
+          {this.state.users.map(
             ({ name, image, favoriteColor, isStudent, birthdate, gender }, idx) => (
-              <div className="userCard" key={idx}>
-                <>
-                  <h1>{name}</h1>
-                  {image && <img src={URL.createObjectURL(image)} alt={name}></img>}
-                  <p>
-                    Favorite color: <i>{favoriteColor}</i>
-                  </p>
-                  <p>
-                    Birth date: <i>{birthdate}</i>
-                  </p>
-                  <p>
-                    Gender: <i>{gender}</i>
-                  </p>
-                  <p>Student: {isStudent ? <i>YES</i> : <i>NO</i>}</p>
-                </>
-              </div>
+              <UserCard
+                key={idx}
+                name={name}
+                image={image}
+                favoriteColor={favoriteColor}
+                isStudent={isStudent}
+                birthdate={birthdate}
+                gender={gender}
+              />
             )
           )}
         </div>

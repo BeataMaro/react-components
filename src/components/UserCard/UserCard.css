@@ -1,0 +1,7 @@
+.userCard {
+    padding: 2rem;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.3);
+    border-radius: 10px;
+    border: 1px solid grey;
+    width: 500px;
+  }

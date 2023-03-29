@@ -1,10 +1,10 @@
-type gender = 'Woman' | 'Man';
+// type gender = 'Woman' | 'Man';
 
 export interface IUser {
   name: string;
-  birthdate: Date;
+  birthdate: string;
   favoriteColor: string;
   isStudent: boolean;
-  gender: gender;
+  gender: string;
   image: File | null;
 }
