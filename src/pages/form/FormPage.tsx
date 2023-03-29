@@ -153,7 +153,7 @@ export default class Form extends Component<object, FormState> {
           <input type="submit" value="submit"></input>
         </form>
         <div className="users-container">
-          {this.state.formData.map(({ name, image }, idx) => (
+          {this.state.formData.map(({ name }, idx) => (
             <div className="userCard" key={idx}>
               <h1>{name}</h1>
               {/* <img src={image} alt="name"></img> */}
