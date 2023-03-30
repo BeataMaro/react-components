@@ -1,3 +1,3 @@
 ### Work in progress.
 
-The app is created to complete the RS School React course.
+Application created as a part of the [RS School JavaScript course.](https://rs.school/js-en/)
