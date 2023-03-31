@@ -1,4 +1,4 @@
-### RS School - React Forms
+### RS School - React Components
 
 ``npm install`` 
 
