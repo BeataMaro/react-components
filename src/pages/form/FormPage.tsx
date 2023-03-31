@@ -2,9 +2,9 @@ import { Component, createRef } from 'react';
 import { FormData } from 'models/form-data-model';
 import { FormErrors } from 'models/form-errors-model';
 import { IUser } from 'models/user-model';
+import UserCard from '../../components/UserCard/UserCard';
 
 import './Form.css';
-import UserCard from '../../components/UserCard/UserCard';
 
 interface FormState {
   formData: FormData[];
