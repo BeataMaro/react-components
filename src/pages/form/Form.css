@@ -1,0 +1,14 @@
+.register-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 800px;
+}
+
+input:hover {
+  cursor: pointer;
+}
+
+.users-container {
+  display: flex;
+  flex-wrap: wrap;
+}
