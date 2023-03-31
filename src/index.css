@@ -73,20 +73,10 @@ form {
 }
 
 form input {
-  padding: .4rem;
-  margin-right: .4rem;
-}
-
-.card {
-  border-radius: 20px;
-  box-shadow: 1px 1px 20px rgba(0,0,0,.5);
-  min-height: 700px;
+  padding: 0.4rem;
+  margin-right: 0.4rem;
 }
 
 img {
   max-width: 100%;
-}
-
-.card img {
-  max-height: 600px; 
 }
