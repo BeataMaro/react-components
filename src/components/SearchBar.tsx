@@ -33,7 +33,7 @@ class SearchBar extends Component<object, SearchBarState> {
 
   render() {
     return (
-      <form onSubmit={this.handleSearchSubmit}>
+      <form onSubmit={this.handleSearchSubmit} data-testid="search">
         <input
           type="text"
           value={this.state.searchQuery}
