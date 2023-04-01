@@ -8,7 +8,9 @@
     "lint": "eslint . --ext .tsx",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest --coverage"
+    "coverage": "vitest run --coverage",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "eslint-config-prettier": "^8.7.0",
@@ -25,6 +27,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/testing-library__jest-dom": "^5.14.5",
@@ -33,6 +36,7 @@
     "@vitejs/plugin-react": "^3.1.0",
     "@vitejs/plugin-react-swc": "^3.2.0",
     "@vitest/coverage-c8": "^0.29.8",
+    "@vitest/ui": "^0.29.8",
     "eslint": "^8.36.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "jsdom": "^21.1.1",

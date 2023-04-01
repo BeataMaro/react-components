@@ -16,8 +16,8 @@
     "resolveJsonModule": true,
     "jsx": "react-jsx",
     "baseUrl": "./src",
-    "types": ["vitest/importMeta"],
+    "types": ["vitest/globals"],
   },
-  "include": ["src", "public/data", "vite.config.ts"],
+  "include": ["./src", "public/data", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

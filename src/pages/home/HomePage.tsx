@@ -18,7 +18,8 @@ export default class Home extends Component {
       .then((res) => res.json() as Promise<IAnimal[]>)
       .then((cards) => {
         this.setState({ cards });
-      });
+      })
+      .catch((e) => console.log(e));
   }
 
   render() {
