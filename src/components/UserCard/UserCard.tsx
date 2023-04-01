@@ -10,7 +10,7 @@ export default class UserCard extends Component<IUser> {
   render() {
     const { name, image, favoriteColor, birthdate, gender, isStudent } = this.props;
     return (
-      <div className="userCard">
+      <div className="userCard" data-testid="userCard">
         <h4>{name}</h4>
         {image && <img src={URL.createObjectURL(image)} alt={name}></img>}
         <p>

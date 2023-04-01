@@ -134,7 +134,7 @@ export default class Form extends Component<object, FormState> {
           <label htmlFor="man">Man</label>
           <input id="man" type="radio" name="gender" ref={this.genderInput} value="Man"></input>
           <input type="file" ref={this.imageInput} onChange={this.handleFileChange}></input>
-          <input type="submit" value="submit"></input>
+          <button type="submit" value="submit"></button>
         </form>
         <div className="users-container">
           {this.state.users.map(

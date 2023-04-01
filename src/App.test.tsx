@@ -1,21 +1,18 @@
-import { describe, it } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
-
-import App from './App';
+import { render, screen } from '@testing-library/react';
+import Header from './components/Header/Header';
 
 describe('App', () => {
-  it('Should render not found if wrong path', () => {
+  it('Should render page title h1', () => {
     render(
-      <MemoryRouter initialEntries={['/wrongPath']}>
-        <App />
+      <MemoryRouter>
+        <Header />
       </MemoryRouter>
     );
-
-    // expect(
-    //   screen.getByRole('heading', {
-    //     level: 2,
-    //   })
-    // ).toHaveTextContent('Something went wrong!');
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+      })
+    ).toHaveTextContent('React');
   });
 });

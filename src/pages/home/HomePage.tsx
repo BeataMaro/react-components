@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import SearchBar from '../../components/SearchBar';
+import SearchBar from '../../components/SearchBar/SearchBar';
 import { IAnimal } from '../../models/animals-model';
 import Card from '../../components/Card/Card';
 import './HomePage.css';

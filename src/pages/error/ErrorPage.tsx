@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-export default class error extends Component {
+export default class ErrorPage extends Component {
   render() {
     return (
       <div>
