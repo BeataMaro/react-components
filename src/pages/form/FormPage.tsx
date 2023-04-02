@@ -3,6 +3,11 @@ import { FormData } from 'models/form-data-model';
 import { FormErrors } from 'models/form-errors-model';
 import { IUser } from 'models/user-model';
 import UserCard from '../../components/UserCard/UserCard';
+// import {
+//   validateName,
+//   validateRequired,
+//   validateFile,
+// } from '../../components/Validation/utils/Validation';
 
 import './Form.css';
 
@@ -14,6 +19,7 @@ interface FormState {
 }
 
 export default class Form extends Component<object, FormState> {
+  private registerForm = createRef<HTMLFormElement>();
   private nameInput = createRef<HTMLInputElement>();
   private birthdateInput = createRef<HTMLInputElement>();
   private favoriteColorInput = createRef<HTMLSelectElement>();
@@ -33,7 +39,6 @@ export default class Form extends Component<object, FormState> {
 
     this.handleFileChange = this.handleFileChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderFormError = this.renderFormError.bind(this);
   }
 
   handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +57,29 @@ export default class Form extends Component<object, FormState> {
       gender: this.genderInput.current!.value,
       image: this.imageInput.current!.files?.[0] || null,
     };
+
+    // Add form data to state
+    const updatedFormData = [...this.state.formData, formData];
+    this.setState({
+      formData: updatedFormData,
+      formErrors: {},
+    });
+
+    this.state.users.push(formData);
+
+    console.log(this.state.users);
+
+    // const { name, birthdate, favoriteColor, gender, isStudent, image } = formData;
+
+    // const errorsOccured = [
+    //   validateName(name, this),
+    //   validateRequired(birthdate, 'birthdate', this),
+    //   validateRequired(gender, 'gender', this),
+    //   validateRequired(favoriteColor, 'country', this),
+    //   validateFile(image, this),
+    //   validateRequired(isStudent, 'isStudent', this),
+    // ].includes(true);
+
     // Validate form data
     const errors: FormErrors = {};
     if (!formData.name) {
@@ -76,31 +104,16 @@ export default class Form extends Component<object, FormState> {
       this.setState({
         formErrors: errors,
       });
-    } else {
-      // Add form data to state
-      const updatedFormData = [...this.state.formData, formData];
-      this.setState({
-        formData: updatedFormData,
-        formErrors: {},
-      });
-
-      this.state.users.push(formData);
-
-      console.log(this.state.users);
 
       // Clear form inputs
-      this.nameInput.current!.value = '';
-      this.birthdateInput.current!.value = '';
-      this.favoriteColorInput.current!.value = '';
-      this.isStudentInput.current!.checked = false;
-      this.imageInput.current!.value = '';
+      this.registerForm.current!.reset();
     }
   }
 
-  renderFormError(field: keyof FormErrors) {
-    const error = this.state.formErrors[field];
-    return error ? <span className="error">{error}</span> : null;
-  }
+  // renderFormError(field: keyof FormErrors) {
+  //   const error = this.state.formErrors[field];
+  //   return error ? <span className="error">{error}</span> : null;
+  // }
 
   render() {
     return (
@@ -109,6 +122,7 @@ export default class Form extends Component<object, FormState> {
           className="register-form"
           action="POST"
           name="register-form"
+          ref={this.registerForm}
           onSubmit={(e) => this.handleSubmit(e)}
         >
           <input type="text" name="name" ref={this.nameInput} required></input>
