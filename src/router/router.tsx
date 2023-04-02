@@ -2,9 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import App from '../App';
 import { Home } from '../pages/home/HomePage';
-import About from '../pages/about/AboutPage';
-import Form from '../pages/form/FormPage';
-import Error from '../pages/error/ErrorPage';
+import { About } from '../pages/about/AboutPage';
+import { FormPage } from '../pages/form/Form';
+import { Error } from '../pages/error/ErrorPage';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/form',
-        element: <Form />,
+        element: <FormPage />,
       },
     ],
   },

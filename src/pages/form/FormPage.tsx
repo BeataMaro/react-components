@@ -65,7 +65,7 @@ export default class Form extends Component<object, FormState> {
       formErrors: {},
     });
 
-    this.state.users.push(formData);
+    // this.state.users.push(formData);
 
     console.log(this.state.users);
 

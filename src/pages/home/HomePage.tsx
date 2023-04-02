@@ -6,14 +6,20 @@ import './HomePage.css';
 
 export const Home = () => {
   const [cards, setCards] = useState([] as IAnimal[]);
+  const API = '/data/animals.json';
 
   useEffect(() => {
-    fetch('/data/animals.json')
-      .then((res) => res.json() as Promise<IAnimal[]>)
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((e) => console.log(e));
+    const fetchData = async (url: string) => {
+      try {
+        const response = await fetch(url);
+        const results = await response.json();
+        setCards(results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData(API);
   }, []);
 
   return (

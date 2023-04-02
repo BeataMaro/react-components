@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { FormData } from '../../../models/form-data-model';
+import { IUser } from '../../../models/user-model';
 
 export const validateName = (value: string | undefined, context: Component<object, FormData>) => {
   let error = '';
@@ -45,7 +45,7 @@ export const validateRequired = (
   return !!error;
 };
 
-export const validateFile = (value: File | null, context: Component<object, FormData>) => {
+export const validateFile = (value: File | null, context: Component<object, IUser>) => {
   let error = '';
 
   if (!value) {
