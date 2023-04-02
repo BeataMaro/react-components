@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import Card from '../../components/Card/Card';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import { SearchBar } from '../../components/SearchBar/SearchBar';
 import { IAnimal } from 'models/animals-model';
 import './HomePage.css';
 
-export const HomePage = () => {
+export const Home = () => {
   const [cards, setCards] = useState([] as IAnimal[]);
 
   useEffect(() => {
