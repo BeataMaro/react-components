@@ -22,14 +22,25 @@ export const FormPage = () => {
   });
 
   const [confirmOpen, setConfirmOpen] = useState<boolean>(true);
+  const [users, setUsers] = useState<IUser[]>([]);
 
   const onSubmit: SubmitHandler<IUser> = (data, e) => {
     e?.preventDefault();
     setConfirmOpen(true);
     console.log(data);
     confirmSending();
+    setUsers([
+      {
+        name: 'John',
+        birthDate: '02-12-22',
+        gender: 'man',
+        favoriteColor: 'blue',
+        isStudent: false,
+        image: data.image,
+      },
+    ]);
     // setUsers((users) => [...users, data]);
-    // console.log(`users: ${users}`);
+    console.log(`users: ${users}`);
     reset();
   };
 
@@ -49,7 +60,10 @@ export const FormPage = () => {
           placeholder="name"
           {...register('name', {
             required: 'Name is required',
-            // /^[A-Z]/
+            pattern: {
+              value: /^[A-Z]/,
+              message: 'Name should start with a capital letter',
+            },
             minLength: { value: 4, message: 'The name needs to be min length of 4.' },
             maxLength: { value: 12, message: 'The name must not be longer than 12 letters.' },
           })}
