@@ -21,12 +21,11 @@ export const FormPage = () => {
     },
   });
 
-  const handleChange = () => setConfirmOpen(true);
-
   const [confirmOpen, setConfirmOpen] = useState<boolean>(true);
 
   const onSubmit: SubmitHandler<IUser> = (data, e) => {
     e?.preventDefault();
+    setConfirmOpen(true);
     console.log(data);
     confirmSending();
     // setUsers((users) => [...users, data]);
@@ -44,12 +43,7 @@ export const FormPage = () => {
 
   return (
     <div className="form-container">
-      <form
-        name="registerForm"
-        action="POST"
-        onSubmit={handleSubmit(onSubmit, onError)}
-        onChange={handleChange}
-      >
+      <form name="registerForm" action="POST" onSubmit={handleSubmit(onSubmit, onError)}>
         <input
           type="text"
           placeholder="name"
