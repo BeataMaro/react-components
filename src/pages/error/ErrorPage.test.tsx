@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Error from './ErrorPage';
+import { Error } from './ErrorPage';
 
 describe('Error Page', () => {
   test('Should exist', () => {
