@@ -1,6 +1,6 @@
 export interface FormErrors {
   name?: string;
-  birthdate?: string;
+  birthDate?: string;
   favoriteColor?: string;
   gender?: string;
 }

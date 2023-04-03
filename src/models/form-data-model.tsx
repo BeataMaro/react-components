@@ -1,6 +1,6 @@
 export interface FormData {
   name: string;
-  birthdate: string;
+  birthDate: string;
   favoriteColor: string;
   isStudent: boolean | string;
   gender: string;

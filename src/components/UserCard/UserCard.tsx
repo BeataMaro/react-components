@@ -8,7 +8,7 @@ export default class UserCard extends Component<IUser> {
   }
 
   render() {
-    const { name, image, favoriteColor, birthdate, gender, isStudent } = this.props;
+    const { name, image, favoriteColor, birthDate, gender, isStudent } = this.props;
     return (
       <div className="userCard" data-testid="userCard">
         <h4>{name}</h4>
@@ -17,7 +17,7 @@ export default class UserCard extends Component<IUser> {
           Favorite color: <i>{favoriteColor}</i>
         </p>
         <p>
-          Birth date: <i>{birthdate}</i>
+          Birth date: <i>{birthDate}</i>
         </p>
         <p>
           Gender: <i>{gender}</i>

@@ -2,7 +2,7 @@
 
 export interface IUser {
   name: string;
-  birthdate: string;
+  birthDate: string;
   favoriteColor: string;
   isStudent: boolean;
   gender: string;

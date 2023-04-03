@@ -51,7 +51,7 @@ export default class Form extends Component<object, FormState> {
 
     const formData: FormData = {
       name: this.nameInput.current!.value,
-      birthdate: this.birthdateInput.current!.value,
+      birthDate: this.birthdateInput.current!.value,
       favoriteColor: this.favoriteColorInput.current!.value,
       isStudent: this.isStudentInput.current!.checked,
       gender: this.genderInput.current!.value,
@@ -88,8 +88,8 @@ export default class Form extends Component<object, FormState> {
       errors.name = 'Name should start with an uppercase letter';
     }
 
-    if (!formData.birthdate) {
-      errors.birthdate = 'Birthdate is required';
+    if (!formData.birthDate) {
+      errors.birthDate = 'Birthdate is required';
     }
 
     if (!formData.favoriteColor) {
@@ -126,7 +126,7 @@ export default class Form extends Component<object, FormState> {
           onSubmit={(e) => this.handleSubmit(e)}
         >
           <input type="text" name="name" ref={this.nameInput} required></input>
-          <input type="date" name="birthdate" ref={this.birthdateInput} required></input>
+          <input type="date" name="birthDate" ref={this.birthdateInput} required></input>
           <label htmlFor="favColor">Favorite color</label>
           <select name="favColor" ref={this.favoriteColorInput} id="favColor" required>
             <option>---</option>
@@ -152,14 +152,14 @@ export default class Form extends Component<object, FormState> {
         </form>
         <div className="users-container">
           {this.state.users.map(
-            ({ name, image, favoriteColor, isStudent, birthdate, gender }, idx) => (
+            ({ name, image, favoriteColor, isStudent, birthDate, gender }, idx) => (
               <UserCard
                 key={idx}
                 name={name}
                 image={image}
                 favoriteColor={favoriteColor}
                 isStudent={isStudent}
-                birthdate={birthdate}
+                birthDate={birthDate}
                 gender={gender}
               />
             )
