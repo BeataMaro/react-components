@@ -19,28 +19,13 @@ const FormPage = () => {
   return (
     <div>
       <Form addUserCard={addUserCard} />
-      {users.usersCards.map((user, idx) => (
-        <UserCard key={idx} user={user} />
-      ))}
+      <div className="users-container">
+        {users.usersCards.map((user, idx) => (
+          <UserCard key={idx} user={user} />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default FormPage;
-
-//   handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = event.target.files?.[0] || null;
-//     this.setState({ selectedFile: file });
-//   };
-
-//   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-//     event.preventDefault();
-
-//     const formData: FormData = {
-//       name: this.nameInput.current!.value,
-//       birthDate: this.birthdateInput.current!.value,
-//       favoriteColor: this.favoriteColorInput.current!.value,
-//       isStudent: this.isStudentInput.current!.checked,
-//       gender: this.genderInput.current!.value,
-//       image: this.imageInput.current!.files?.[0] || null,
-//     };

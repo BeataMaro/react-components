@@ -25,13 +25,13 @@ export const Form = (props: { addUserCard: (user: IUser) => void }) => {
   const onSubmit: SubmitHandler<IUser> = async (data) => {
     setConfirmOpen(true);
     const { name, birthDate, favoriteColor, isStudent, gender, image } = data;
-    const card: IUser = {
+    const card: IUser = await {
       name,
       birthDate,
       favoriteColor,
       isStudent,
       gender,
-      image,
+      image: image[0],
     };
     props.addUserCard(card);
     confirmSending();
