@@ -1,46 +1,40 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import './Form.css';
-// import UserCard from '../../components/UserCard/UserCard';
 import { IUser } from 'models/user-model';
 
-export const FormPage = () => {
+export const Form = (props: { addUserCard: (user: IUser) => void }) => {
   const {
     register,
-
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm<IUser>({
+    mode: 'onSubmit',
     defaultValues: {
       name: '',
       birthDate: undefined,
       favoriteColor: 'blue',
       gender: undefined,
-      image: null,
+      image: '',
     },
   });
 
   const [confirmOpen, setConfirmOpen] = useState<boolean>(true);
-  const [users, setUsers] = useState<IUser[]>([]);
 
-  const onSubmit: SubmitHandler<IUser> = (data, e) => {
-    e?.preventDefault();
+  const onSubmit: SubmitHandler<IUser> = async (data) => {
     setConfirmOpen(true);
-    console.log(data);
+    const { name, birthDate, favoriteColor, isStudent, gender, image } = data;
+    const card: IUser = {
+      name,
+      birthDate,
+      favoriteColor,
+      isStudent,
+      gender,
+      image,
+    };
+    props.addUserCard(card);
     confirmSending();
-    setUsers([
-      {
-        name: 'John',
-        birthDate: '02-12-22',
-        gender: 'man',
-        favoriteColor: 'blue',
-        isStudent: false,
-        image: data.image,
-      },
-    ]);
-    // setUsers((users) => [...users, data]);
-    console.log(`users: ${users}`);
     reset();
   };
 
@@ -49,7 +43,7 @@ export const FormPage = () => {
   const confirmSending = () => {
     setTimeout(() => {
       setConfirmOpen(false);
-    }, 2000);
+    }, 2500);
   };
 
   return (
@@ -121,19 +115,6 @@ export const FormPage = () => {
           Form has been sent successfully!
         </div>
       ) : null}
-      {/* <div className="users-container">
-        {users.map(({ name, image, favoriteColor, isStudent, birthDate, gender }, idx) => (
-          <UserCard
-            key={idx}
-            name={name}
-            image={image}
-            favoriteColor={favoriteColor}
-            isStudent={isStudent}
-            birthDate={birthDate}
-            gender={gender}
-          />
-        ))}
-      </div> */}
     </div>
   );
 };

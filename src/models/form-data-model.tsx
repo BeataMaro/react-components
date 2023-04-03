@@ -4,5 +4,5 @@ export interface FormData {
   favoriteColor: string;
   isStudent: boolean | string;
   gender: string;
-  image: File | null;
+  image: File | Blob | null;
 }
