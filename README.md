@@ -2,7 +2,9 @@
 
 ``npm install`` 
 
-``npm run lint`` 
+``npm run lint``  
+
+``npm run test`` 
 
 ``npm run dev``
 ### Work in progress.
