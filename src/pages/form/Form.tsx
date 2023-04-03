@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import './Form.css';
 // import UserCard from '../../components/UserCard/UserCard';
@@ -7,23 +7,49 @@ import { IUser } from 'models/user-model';
 export const FormPage = () => {
   const {
     register,
+
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<IUser>();
-
-  const [users, setUsers] = useState<IUser[]>([]);
-
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    setUsers((prev) => [...prev, data]);
-    console.log(users);
-    reset();
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<IUser>({
+    defaultValues: {
+      name: '',
+      birthDate: undefined,
+      favoriteColor: 'blue',
+      gender: undefined,
+      image: null,
+    },
   });
+
+  const handleChange = () => setConfirmOpen(true);
+
+  const [confirmOpen, setConfirmOpen] = useState<boolean>(true);
+
+  const onSubmit: SubmitHandler<IUser> = (data, e) => {
+    e?.preventDefault();
+    console.log(data);
+    confirmSending();
+    // setUsers((users) => [...users, data]);
+    // console.log(`users: ${users}`);
+    reset();
+  };
+
+  const onError = () => console.log('wrong');
+
+  const confirmSending = () => {
+    setTimeout(() => {
+      setConfirmOpen(false);
+    }, 2000);
+  };
 
   return (
     <div className="form-container">
-      <form name="registerForm" action="POST" onSubmit={onSubmit}>
+      <form
+        name="registerForm"
+        action="POST"
+        onSubmit={handleSubmit(onSubmit, onError)}
+        onChange={handleChange}
+      >
         <input
           type="text"
           placeholder="name"
@@ -82,6 +108,11 @@ export const FormPage = () => {
 
         <input type="submit" value="Register" />
       </form>
+      {isSubmitSuccessful ? (
+        <div className={confirmOpen ? 'submit-confirmation-open' : 'submit-confirmation-close'}>
+          Form has been sent successfully!
+        </div>
+      ) : null}
       {/* <div className="users-container">
         {users.map(({ name, image, favoriteColor, isStudent, birthDate, gender }, idx) => (
           <UserCard

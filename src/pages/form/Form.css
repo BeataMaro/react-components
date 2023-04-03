@@ -13,6 +13,17 @@ input:hover {
   flex-wrap: wrap;
 }
 
+.submit-confirmation-open {
+  color: rgb(22, 155, 26);
+  opacity: 1;
+  transition: 200ms ease-in;
+}
+.submit-confirmation-close {
+  color: rgb(22, 155, 26);
+  opacity: 0;
+  transition: 200ms ease-in;
+}
+
 .errorMessage {
   color: rgb(201, 40, 40);
 }
