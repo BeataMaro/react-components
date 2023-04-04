@@ -19,7 +19,7 @@ export const SearchBar = () => {
 
   return (
     <form onSubmit={handleSearchSubmit} data-testid="search">
-      <input type="text" onChange={handleChange} placeholder="Search" />
+      <input type="text" value={searchQuery} onChange={handleChange} placeholder="Search" />
       <button type="submit">Search</button>
     </form>
   );
