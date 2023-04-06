@@ -1,4 +1,4 @@
-### RS School - React 
+### RS School - React
 
 ``npm install`` 
 
