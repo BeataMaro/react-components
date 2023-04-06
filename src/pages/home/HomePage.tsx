@@ -1,44 +1,43 @@
-import { Component } from 'react';
-import SearchBar from '../../components/SearchBar';
-import { IAnimal } from '../../models/animals-model';
+import { useState, useEffect } from 'react';
 import Card from '../../components/Card/Card';
+import { SearchBar } from '../../components/SearchBar/SearchBar';
+import { IAnimal } from 'models/animals-model';
 import './HomePage.css';
 
-interface ICardsListing {
-  cards: IAnimal[];
-}
+export const Home = () => {
+  const [cards, setCards] = useState([] as IAnimal[]);
+  const API = '/data/animals.json';
 
-export default class Home extends Component {
-  state: ICardsListing = {
-    cards: [],
-  };
+  useEffect(() => {
+    const fetchData = async (url: string) => {
+      try {
+        const response = await fetch(url);
+        const results = await response.json();
+        setCards(results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  componentDidMount() {
-    fetch('/data/animals.json')
-      .then((res) => res.json() as Promise<IAnimal[]>)
-      .then((cards) => {
-        this.setState({ cards });
-      });
-  }
+    fetchData(API);
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <SearchBar />
-        <div className="cards-container">
-          {this.state.cards.map(({ id, name, dato1, dato2, dato3, image }) => (
-            <Card
-              key={id}
-              id={id}
-              name={name}
-              dato1={dato1}
-              dato2={dato2}
-              dato3={dato3}
-              image={image}
-            />
-          ))}
-        </div>
+  return (
+    <div>
+      <SearchBar />
+      <div className="cards-container">
+        {cards.map(({ id, name, dato1, dato2, dato3, image }) => (
+          <Card
+            key={id}
+            id={id}
+            name={name}
+            dato1={dato1}
+            dato2={dato2}
+            dato3={dato3}
+            image={image}
+          />
+        ))}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};

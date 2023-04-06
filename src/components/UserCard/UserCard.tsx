@@ -1,29 +1,27 @@
 import { IUser } from 'models/user-model';
-import { Component } from 'react';
 import './UserCard.css';
 
-export default class UserCard extends Component<IUser> {
-  constructor(props: IUser) {
-    super(props);
-  }
+const UserCard = (props: { key: number; user: IUser }) => {
+  const { user } = props;
+  const file = new File([user.image], user.image[0]);
+  const url = URL.createObjectURL(file);
 
-  render() {
-    const { name, image, favoriteColor, birthdate, gender, isStudent } = this.props;
-    return (
-      <div className="userCard">
-        <h4>{name}</h4>
-        {image && <img src={URL.createObjectURL(image)} alt={name}></img>}
-        <p>
-          Favorite color: <i>{favoriteColor}</i>
-        </p>
-        <p>
-          Birth date: <i>{birthdate}</i>
-        </p>
-        <p>
-          Gender: <i>{gender}</i>
-        </p>
-        <p>Student: {isStudent ? <i>YES</i> : <i>NO</i>}</p>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="userCard" data-testid="userCard">
+      <h4>{user.name}</h4>
+      {user.image && <img src={url} alt={user.name}></img>}
+      <p>
+        Favorite color: <i>{user.favoriteColor}</i>
+      </p>
+      <p>
+        Birth date: <i>{user.birthDate}</i>
+      </p>
+      <p>
+        Gender: <i>{user.gender}</i>
+      </p>
+      <p>Student: {user.isStudent ? <i>YES</i> : <i>NO</i>}</p>
+    </div>
+  );
+};
+
+export default UserCard;
