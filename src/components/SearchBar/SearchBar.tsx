@@ -1,3 +1,4 @@
+import { ChangeEvent, FormEvent } from 'react';
 import { useState, useEffect } from 'react';
 
 export const SearchBar = () => {
@@ -8,12 +9,12 @@ export const SearchBar = () => {
     localStorage.setItem('searchQuery', searchQuery);
   }, [searchQuery]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
     localStorage.setItem('searchQuery', searchQuery);
   };
 
-  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
 

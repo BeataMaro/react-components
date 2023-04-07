@@ -1,29 +1,32 @@
-import { IAnimal } from 'models/animals-model';
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
+import { IPhoto } from 'models/photo-model';
+
 import './Card.css';
 
-interface CardState {
-  searchQuery: string;
-}
+// interface CardState {
+//   searchQuery: string;
+// }
 
-export default class Card extends Component<IAnimal, CardState> {
-  constructor(props: IAnimal) {
-    super(props);
-    this.state = {
-      searchQuery: localStorage.getItem('searchQuery') || '',
-    };
-  }
-  render() {
-    const { name, dato1, dato2, dato3, image } = this.props;
-    return (
-      <div className="card">
-        <img src={image} alt="random image from unsplash.com" />
-        <h3>{this.state.searchQuery}</h3>
-        <h2>{name}</h2>
-        <p>{dato1}</p>
-        <span>{dato2}</span>
-        <i>{dato3}</i>
-      </div>
-    );
-  }
-}
+export const Card: React.FC<{ photo: IPhoto }> = ({ photo }) => {
+  const { user, urls } = photo;
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    setSearchQuery(localStorage.getItem('searchQuery') || '');
+  }, []);
+
+  return (
+    <div className="card">
+      <img className="img" src={urls.regular} />
+      <a
+        className="credit"
+        target="_blank"
+        rel="noreferrer"
+        href={`https://unsplash.com/@${user.username}`}
+      >
+        {user.name}
+      </a>
+    </div>
+  );
+};
