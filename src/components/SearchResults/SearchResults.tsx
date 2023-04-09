@@ -1,8 +1,10 @@
-import { Card } from '../Card/Card';
-import { IPhoto } from 'models/photo-model';
 import { useEffect, useState } from 'react';
 import { createApi } from 'unsplash-js';
+import { Card } from '../Card/Card';
+import { IPhoto } from 'models/photo-model';
+import { Error } from '../../pages/error/ErrorPage';
 import ClipLoader from 'react-spinners/ClipLoader';
+import './SearchResults.css';
 
 const InitialPhotoState: IPhoto = {
   id: '',
@@ -13,10 +15,9 @@ const InitialPhotoState: IPhoto = {
     small: '',
   },
   user: {
-    username: 'Adelajda',
-    name: 'Aldona',
+    username: '',
+    name: '',
   },
-  // errors: ''
 };
 
 export default function SearchResults(props: { searchQuery: string }) {
@@ -47,7 +48,6 @@ export default function SearchResults(props: { searchQuery: string }) {
           setResults(photoRes);
           setLoading(false);
         }
-        // return photoRes;
       })
       .catch(() => {
         setError(true);
@@ -65,15 +65,13 @@ export default function SearchResults(props: { searchQuery: string }) {
           data-testid="loader"
         />
       )}
-      {error && (
-        <div>
-          <div>Something went wrong, please try again!</div>
-        </div>
-      )}
+      {error && <Error />}
       <div className="cards-container">
-        {results.map((photo) => (
-          <Card key={photo.id} photo={photo} />
-        ))}
+        {results.length ? (
+          results.map((photo) => <Card key={photo.id} photo={photo} />)
+        ) : (
+          <p>0 results</p>
+        )}
       </div>
     </>
   );
