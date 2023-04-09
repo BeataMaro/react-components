@@ -2,6 +2,7 @@ import { Card } from '../Card/Card';
 import { IPhoto } from 'models/photo-model';
 import { useEffect, useState } from 'react';
 import { createApi } from 'unsplash-js';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const InitialPhotoState: IPhoto = {
   id: '',
@@ -21,14 +22,15 @@ const InitialPhotoState: IPhoto = {
 export default function SearchResults(props: { searchQuery: string }) {
   const { searchQuery } = props;
   const [results, setResults] = useState<IPhoto[]>([InitialPhotoState]);
-
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
   const api = createApi({
     accessKey: import.meta.env.VITE_ACCESS_KEY,
   });
 
   useEffect(() => {
     api.search
-      .getPhotos({ query: searchQuery, orientation: 'landscape' })
+      .getPhotos({ query: searchQuery, orientation: 'landscape', perPage: 12 })
       .then((res) => res.response?.results)
       .then((res) => {
         const photoRes = res?.map((photo) => ({
@@ -43,31 +45,36 @@ export default function SearchResults(props: { searchQuery: string }) {
         }));
         if (photoRes) {
           setResults(photoRes);
+          setLoading(false);
         }
-        return photoRes;
+        // return photoRes;
       })
-      .catch((e) => {
-        console.log('something went wrong!');
-        console.log(e);
+      .catch(() => {
+        setError(true);
       });
-  }, [searchQuery, api.search]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
 
-  if (results.length === 0) {
-    return <p>Progressing...</p>;
-  } // } else if (data.errors) {
-  //   return (
-  //     <div>
-  //       <div>{data.errors[0]}</div>
-  //       <div>PS: Make sure to set your access token!</div>
-  //     </div>
-  //   );
-  else {
-    return (
+  return (
+    <>
+      {loading && (
+        <ClipLoader
+          loading={loading}
+          size={100}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      )}
+      {error && (
+        <div>
+          <div>Something went wrong, please try again!</div>
+        </div>
+      )}
       <div className="cards-container">
         {results.map((photo) => (
           <Card key={photo.id} photo={photo} />
         ))}
       </div>
-    );
-  }
+    </>
+  );
 }

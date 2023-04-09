@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect } from 'react';
+import './SearchBar.css';
 
 export const SearchBar = (props: {
   searchQuery: string;
@@ -26,7 +27,9 @@ export const SearchBar = (props: {
   return (
     <form onSubmit={handleSearchSubmit} data-testid="search">
       <input type="text" onChange={handleChange} placeholder="Search" />
-      <button type="submit">Search</button>
+      <button type="submit" className="search-button">
+        Search
+      </button>
     </form>
   );
 };
