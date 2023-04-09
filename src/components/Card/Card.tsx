@@ -1,20 +1,9 @@
-import { useEffect, useState } from 'react';
 import { IPhoto } from 'models/photo-model';
 
 import './Card.css';
 
-// interface CardState {
-//   searchQuery: string;
-// }
-
 export const Card: React.FC<{ photo: IPhoto }> = ({ photo }) => {
   const { user, urls } = photo;
-
-  const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    setSearchQuery(localStorage.getItem('searchQuery') || '');
-  }, []);
 
   return (
     <div className="card">

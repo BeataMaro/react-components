@@ -1,26 +1,31 @@
-import { ChangeEvent, FormEvent } from 'react';
-import { useState, useEffect } from 'react';
+import { ChangeEvent, FormEvent, useEffect } from 'react';
 
-export const SearchBar = () => {
-  const query = localStorage.getItem('searchQuery') || '';
-  const [searchQuery, setSearchQuery] = useState(query);
+export const SearchBar = (props: {
+  searchQuery: string;
+  setSearchQuery: (newState: string) => void;
+}) => {
+  const { searchQuery, setSearchQuery } = props;
+
+  let search = '';
 
   useEffect(() => {
-    localStorage.setItem('searchQuery', searchQuery);
+    JSON.stringify(localStorage.setItem('searchQuery', searchQuery)) || '';
   }, [searchQuery]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-    localStorage.setItem('searchQuery', searchQuery);
+    search = event.target.value;
+    localStorage.setItem('searchQuery', search);
   };
 
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSearchQuery(search);
+    localStorage.setItem('searchQuery', search);
   };
 
   return (
     <form onSubmit={handleSearchSubmit} data-testid="search">
-      <input type="text" value={searchQuery} onChange={handleChange} placeholder="Search" />
+      <input type="text" onChange={handleChange} placeholder="Search" />
       <button type="submit">Search</button>
     </form>
   );
