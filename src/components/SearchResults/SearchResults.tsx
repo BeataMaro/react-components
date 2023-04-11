@@ -6,7 +6,7 @@ import { Error } from '../../pages/error/ErrorPage';
 import ClipLoader from 'react-spinners/ClipLoader';
 import './SearchResults.css';
 
-const InitialPhotoState: IPhoto = {
+export const InitialPhotoState: IPhoto = {
   id: '',
   urls: {
     full: '',

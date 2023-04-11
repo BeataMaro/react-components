@@ -17,7 +17,7 @@ export const Card: React.FC<{ photo: IPhoto }> = ({ photo }) => {
 
   return (
     <>
-      <div className="card" onClick={openModal}>
+      <div className="card" onClick={openModal} data-testid="image-card">
         <img className="gallery-image" src={urls.regular}></img>
       </div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} photo={photo} />
