@@ -4,9 +4,7 @@ import 'vitest-fetch-mock';
 
 // Mock the API call
 fetchMock(
-  `https://api.unsplash.com/search/photos?query=nature&orientation=landscape&per_page=12&client_id=${
-    import.meta.env.VITE_ACCESS_KEY
-  }`
+  'https://api.unsplash.com/search/photos?query=nature&orientation=landscape&per_page=12&client_id=gZBCrXY_R_pbuKYOsX64KBUOu_kKwnE50jvqNyoMRoM'
 );
 
 describe('SearchResults component', () => {

@@ -35,7 +35,7 @@ export default function SearchResults(props: { searchQuery: string }) {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const api = createApi({
-    accessKey: import.meta.env.VITE_ACCESS_KEY,
+    accessKey: 'gZBCrXY_R_pbuKYOsX64KBUOu_kKwnE50jvqNyoMRoM',
   });
 
   useEffect(() => {
