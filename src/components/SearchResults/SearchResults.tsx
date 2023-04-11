@@ -14,14 +14,23 @@ const InitialPhotoState: IPhoto = {
     raw: '',
     small: '',
   },
+  description: undefined,
+  alt_description: undefined,
   user: {
     username: '',
     name: '',
+    profile_image: {
+      small: '',
+    },
   },
+  likes: 0,
+  width: 0,
+  height: 0,
 };
 
 export default function SearchResults(props: { searchQuery: string }) {
   const { searchQuery } = props;
+
   const [results, setResults] = useState<IPhoto[]>([InitialPhotoState]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -43,6 +52,11 @@ export default function SearchResults(props: { searchQuery: string }) {
             raw: photo!.urls.raw,
           },
           user: photo!.user,
+          description: photo!.description || undefined,
+          alt_description: photo!.alt_description || undefined,
+          likes: photo!.likes,
+          width: photo!.width,
+          height: photo!.height,
         }));
         if (photoRes) {
           setResults(photoRes);
@@ -66,13 +80,15 @@ export default function SearchResults(props: { searchQuery: string }) {
         />
       )}
       {error && <Error />}
-      <div className="cards-container">
-        {results.length ? (
-          results.map((photo) => <Card key={photo.id} photo={photo} />)
-        ) : (
-          <p>0 results</p>
-        )}
-      </div>
+      {!error && !loading && (
+        <div className="cards-container">
+          {results.length ? (
+            results.map((photo) => <Card key={photo.id} photo={photo} />)
+          ) : (
+            <p>0 results</p>
+          )}
+        </div>
+      )}
     </>
   );
 }

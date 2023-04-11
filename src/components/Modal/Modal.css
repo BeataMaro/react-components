@@ -1,0 +1,14 @@
+.user-profile-image {
+  border-radius: 50%;
+  margin: 1rem;
+}
+.heart-icon {
+  cursor: pointer;
+}
+.close-button {
+  justify-self: flex-end;
+}
+.author-info {
+  display: flex;
+  align-items: center;
+}

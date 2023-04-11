@@ -1,5 +1,9 @@
 .card {
-    border-radius: 20px;
-    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
-    padding: 1rem;
-  }
+  border-radius: 20px;
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  cursor: pointer;
+}
+.gallery-image {
+  object-fit: cover;
+}
