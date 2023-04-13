@@ -1,29 +1,26 @@
-import { IAnimal } from 'models/animals-model';
-import { Component } from 'react';
+import { IPhoto } from 'models/photo-model';
 import './Card.css';
+import { useState } from 'react';
+import Modal from '../Modal/Modal';
 
-interface CardState {
-  searchQuery: string;
-}
+export const Card: React.FC<{ photo: IPhoto }> = ({ photo }) => {
+  const { urls } = photo;
 
-export default class Card extends Component<IAnimal, CardState> {
-  constructor(props: IAnimal) {
-    super(props);
-    this.state = {
-      searchQuery: localStorage.getItem('searchQuery') || '',
-    };
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
   }
-  render() {
-    const { name, dato1, dato2, dato3, image } = this.props;
-    return (
-      <div className="card">
-        <img src={image} alt="random image from unsplash.com" />
-        <h3>{this.state.searchQuery}</h3>
-        <h2>{name}</h2>
-        <p>{dato1}</p>
-        <span>{dato2}</span>
-        <i>{dato3}</i>
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  return (
+    <>
+      <div className="card" onClick={openModal} data-testid="image-card">
+        <img className="gallery-image" src={urls.regular}></img>
       </div>
-    );
-  }
-}
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} photo={photo} />
+    </>
+  );
+};
