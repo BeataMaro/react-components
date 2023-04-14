@@ -4,6 +4,7 @@ import { Card } from '../Card/Card';
 import { IPhoto } from 'models/photo-model';
 import { Error } from '../../pages/error/ErrorPage';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { useGetPhotoByKeywordQuery } from '../../services/api/apiSlice';
 import './SearchResults.css';
 
 export const InitialPhotoState: IPhoto = {
@@ -35,8 +36,10 @@ export default function SearchResults(props: { searchQuery: string }) {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const api = createApi({
-    accessKey: 'gZBCrXY_R_pbuKYOsX64KBUOu_kKwnE50jvqNyoMRoM',
+    accessKey: import.meta.env.VITE_ACCESS_KEY,
   });
+
+  const { data } = useGetPhotoByKeywordQuery('dog');
 
   useEffect(() => {
     api.search
@@ -87,6 +90,7 @@ export default function SearchResults(props: { searchQuery: string }) {
           ) : (
             <p>0 results</p>
           )}
+          {JSON.stringify(data)}
         </div>
       )}
     </>
