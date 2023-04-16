@@ -23,6 +23,7 @@ export default function Modal(props: {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       width: '40vw',
+      maxHeight: '85vh',
       display: 'grid',
       placeItems: 'center',
     },
@@ -60,22 +61,28 @@ export default function Modal(props: {
         </a>
       </div>
       <p>{description || alt_description}</p>
-      <p>{likes} people like this photo</p>
-      <a className="heart-icon" onClick={toggleLike}>
-        {liked ? (
-          <>
-            <FaHeart />
-            <span> It is your favorite!</span>
-          </>
-        ) : (
-          <>
-            <FaRegHeart />
-            <span> Add to favorites</span>
-          </>
-        )}
-      </a>
-      <p>Width: {width}px</p>
-      <p>Height: {height}px</p>
+      <div className="photo-info">
+        <div>
+          <p>{likes} people like this photo</p>
+          <a className="heart-icon" onClick={toggleLike}>
+            {liked ? (
+              <>
+                <FaHeart />
+                <span> It is your favorite!</span>
+              </>
+            ) : (
+              <>
+                <FaRegHeart />
+                <span> Add to favorites</span>
+              </>
+            )}
+          </a>
+        </div>
+        <div>
+          <p>Width: {width}px</p>
+          <p>Height: {height}px</p>
+        </div>
+      </div>
     </ReactModal>
   );
 }

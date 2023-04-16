@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { createApi } from 'unsplash-js';
 import { Card } from '../Card/Card';
 import { IPhoto } from 'models/photo-model';
 import { Error } from '../../pages/error/ErrorPage';
@@ -32,43 +31,16 @@ export const InitialPhotoState: IPhoto = {
 export default function SearchResults(props: { searchQuery: string }) {
   const { searchQuery } = props;
 
-  const [results, setResults] = useState<IPhoto[]>([InitialPhotoState]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
-  const api = createApi({
-    accessKey: import.meta.env.VITE_ACCESS_KEY,
-  });
 
-  const { data } = useGetPhotoByKeywordQuery('dog');
+  const { data } = useGetPhotoByKeywordQuery(searchQuery);
 
   useEffect(() => {
-    api.search
-      .getPhotos({ query: searchQuery, orientation: 'landscape', perPage: 12 })
-      .then((res) => res.response?.results)
-      .then((res) => {
-        const photoRes = res?.map((photo) => ({
-          id: photo.id,
-          urls: {
-            full: photo!.urls.full,
-            small: photo!.urls.small,
-            regular: photo!.urls.regular,
-            raw: photo!.urls.raw,
-          },
-          user: photo!.user,
-          description: photo!.description || undefined,
-          alt_description: photo!.alt_description || undefined,
-          likes: photo!.likes,
-          width: photo!.width,
-          height: photo!.height,
-        }));
-        if (photoRes) {
-          setResults(photoRes);
-          setLoading(false);
-        }
-      })
-      .catch(() => {
-        setError(true);
-      });
+    if (data) {
+      setError(false);
+      setLoading(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
@@ -85,12 +57,11 @@ export default function SearchResults(props: { searchQuery: string }) {
       {error && <Error />}
       {!error && !loading && (
         <div className="cards-container">
-          {results.length ? (
-            results.map((photo) => <Card key={photo.id} photo={photo} />)
+          {data ? (
+            data?.results!.map((photo) => <Card key={photo.id} photo={photo} />)
           ) : (
-            <p>0 results</p>
+            <p>0 results. Please, try to search for another word.</p>
           )}
-          {JSON.stringify(data)}
         </div>
       )}
     </>
