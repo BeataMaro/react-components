@@ -2,8 +2,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import './Form.css';
 import { IUser } from 'models/user-model';
+import { useDispatch } from 'react-redux';
+import { addUserCard } from '../../services/newCardSlice';
 
-export const Form = (props: { addUserCard: (user: IUser) => void }) => {
+export const Form = () => {
   const {
     register,
     handleSubmit,
@@ -21,6 +23,7 @@ export const Form = (props: { addUserCard: (user: IUser) => void }) => {
   });
 
   const [confirmOpen, setConfirmOpen] = useState<boolean>(true);
+  const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<IUser> = async (data) => {
     setConfirmOpen(true);
@@ -33,7 +36,7 @@ export const Form = (props: { addUserCard: (user: IUser) => void }) => {
       gender,
       image: image[0],
     };
-    props.addUserCard(card);
+    dispatch(addUserCard(card));
     confirmSending();
     reset();
   };

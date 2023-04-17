@@ -3,14 +3,18 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { photoApi } from '../services/api/apiSlice';
 import searchKeywordReducer from '../services/searchKeywordSlice';
 import searchResultsReducer from '../services/searchResultsSlice';
+import newUserCardReducer from '../services/newCardSlice';
 
 export const store = configureStore({
   reducer: {
     searchKeyword: searchKeywordReducer,
     searchResults: searchResultsReducer,
+    formCards: newUserCardReducer,
+
     [photoApi.reducerPath]: photoApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(photoApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(photoApi.middleware),
 });
 
 setupListeners(store.dispatch);

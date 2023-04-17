@@ -7,6 +7,7 @@ export default class Header extends Component {
       <div>
         <h1>React</h1>
         <nav>
+          <NavLink to="/">Home | </NavLink>
           <NavLink to="/about">About | </NavLink>
           <NavLink to="/form"> Register Form</NavLink>
         </nav>
