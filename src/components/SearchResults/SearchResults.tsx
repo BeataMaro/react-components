@@ -5,6 +5,9 @@ import { Error } from '../../pages/error/ErrorPage';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { useGetPhotoByKeywordQuery } from '../../services/api/apiSlice';
 import './SearchResults.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSearchResults } from '../../services/searchResultsSlice';
+import { RootState } from 'store/store';
 
 export const InitialPhotoState: IPhoto = {
   id: '',
@@ -28,21 +31,22 @@ export const InitialPhotoState: IPhoto = {
   height: 0,
 };
 
-export default function SearchResults(props: { searchQuery: string }) {
-  const { searchQuery } = props;
-
+export default function SearchResults() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
-  const { data } = useGetPhotoByKeywordQuery(searchQuery);
+  const dispatch = useDispatch();
+  const keyword = useSelector((state: RootState) => state.searchKeyword.inputValue);
+  const { data } = useGetPhotoByKeywordQuery(keyword || 'stars');
 
   useEffect(() => {
-    if (data) {
+    setLoading(false);
+
+    if (data?.results) {
+      dispatch(updateSearchResults(data?.results));
       setError(false);
-      setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery]);
+  }, [keyword, data, dispatch]);
 
   return (
     <>

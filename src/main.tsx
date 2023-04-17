@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import ReactModal from 'react-modal';
 
 import './index.css';
-// import App from './App';
-import { store } from './redux/store';
+import { store } from './store/store';
 import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
 import { photoApi } from './services/api/apiSlice';
 
@@ -17,7 +16,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ApiProvider api={photoApi}>
       <Provider store={store}>
-        {/* <App /> */}
         <RouterProvider router={router} />
       </Provider>
     </ApiProvider>
