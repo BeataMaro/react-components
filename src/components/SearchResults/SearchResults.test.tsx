@@ -11,7 +11,7 @@ fetchMock(
 
 describe('SearchResults component', () => {
   it('displays loading spinner when results are loading', async () => {
-    const { getByTestId } = render(<SearchResults searchQuery="nature" />);
+    const { getByTestId } = render(<SearchResults />);
 
     expect(getByTestId('loader')).toBeInTheDocument();
 
