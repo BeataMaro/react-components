@@ -18,16 +18,9 @@ export const SearchBar = () => {
     dispatch(updateInputValue(inputVal));
   };
 
-  const searchValue = useSelector((state: RootState) => state.searchKeyword.inputValue) || '';
-
   return (
     <form onSubmit={(e) => handleSearchSubmit(e)} data-testid="search">
-      <input
-        type="text"
-        value={searchValue}
-        onChange={(e) => handleChange(e)}
-        placeholder="Search"
-      />
+      <input type="text" onChange={(e) => handleChange(e)} placeholder="Search" />
       <button type="submit" className="search-button">
         Search
       </button>
