@@ -6,7 +6,7 @@ describe('Form Component', () => {
   it('Should be defined', () => {
     expect(<Home />).toBeDefined();
   });
-  it('Should has search bar and cards wrapper inside', () => {
+  it('Should has search bar and search results inside', () => {
     render(<Home />);
     expect(screen.getByTestId('search')).toBeInTheDocument();
   });
