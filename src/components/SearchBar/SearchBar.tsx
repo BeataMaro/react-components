@@ -1,12 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import './SearchBar.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateInputValue } from '../../services/searchKeywordSlice';
+import { RootState } from 'store/store';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
+  const inputValue = useSelector((state: RootState) => state.searchKeyword.inputValue);
 
-  const [inputVal, setInputVal] = useState<string>('');
+  const [inputVal, setInputVal] = useState<string>(inputValue || '');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputVal(event.target.value);
@@ -19,7 +21,7 @@ export const SearchBar = () => {
 
   return (
     <form onSubmit={(e) => handleSearchSubmit(e)} data-testid="search">
-      <input type="text" onChange={(e) => handleChange(e)} placeholder="Search" />
+      <input type="text" value={inputVal} onChange={(e) => handleChange(e)} placeholder="Search" />
       <button type="submit" className="search-button">
         Search
       </button>
