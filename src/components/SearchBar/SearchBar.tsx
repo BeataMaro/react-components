@@ -1,32 +1,27 @@
-import { ChangeEvent, FormEvent, useEffect } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import './SearchBar.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputValue } from '../../services/searchKeywordSlice';
+import { RootState } from 'store/store';
 
-export const SearchBar = (props: {
-  searchQuery: string;
-  setSearchQuery: (newState: string) => void;
-}) => {
-  const { searchQuery, setSearchQuery } = props;
+export const SearchBar = () => {
+  const dispatch = useDispatch();
+  const inputValue = useSelector((state: RootState) => state.searchKeyword.inputValue);
 
-  let search = '';
-
-  useEffect(() => {
-    JSON.stringify(localStorage.setItem('searchQuery', searchQuery)) || '';
-  }, [searchQuery]);
+  const [inputVal, setInputVal] = useState<string>(inputValue || '');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    search = event.target.value;
-    localStorage.setItem('searchQuery', search);
+    setInputVal(event.target.value);
   };
 
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSearchQuery(search);
-    localStorage.setItem('searchQuery', search);
+    dispatch(updateInputValue(inputVal));
   };
 
   return (
-    <form onSubmit={handleSearchSubmit} data-testid="search">
-      <input type="text" onChange={handleChange} placeholder="Search" />
+    <form onSubmit={(e) => handleSearchSubmit(e)} data-testid="search">
+      <input type="text" value={inputVal} onChange={(e) => handleChange(e)} placeholder="Search" />
       <button type="submit" className="search-button">
         Search
       </button>

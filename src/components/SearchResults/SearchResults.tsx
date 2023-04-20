@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { createApi } from 'unsplash-js';
 import { Card } from '../Card/Card';
 import { IPhoto } from 'models/photo-model';
 import { Error } from '../../pages/error/ErrorPage';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { useGetPhotoByKeywordQuery } from '../../services/api/apiSlice';
 import './SearchResults.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSearchResults } from '../../services/searchResultsSlice';
+import { RootState } from 'store/store';
 
 export const InitialPhotoState: IPhoto = {
   id: '',
@@ -28,46 +31,22 @@ export const InitialPhotoState: IPhoto = {
   height: 0,
 };
 
-export default function SearchResults(props: { searchQuery: string }) {
-  const { searchQuery } = props;
-
-  const [results, setResults] = useState<IPhoto[]>([InitialPhotoState]);
+export default function SearchResults() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
-  const api = createApi({
-    accessKey: 'gZBCrXY_R_pbuKYOsX64KBUOu_kKwnE50jvqNyoMRoM',
-  });
+
+  const dispatch = useDispatch();
+  const keyword = useSelector((state: RootState) => state.searchKeyword.inputValue);
+  const { data } = useGetPhotoByKeywordQuery(keyword || 'stars');
 
   useEffect(() => {
-    api.search
-      .getPhotos({ query: searchQuery, orientation: 'landscape', perPage: 12 })
-      .then((res) => res.response?.results)
-      .then((res) => {
-        const photoRes = res?.map((photo) => ({
-          id: photo.id,
-          urls: {
-            full: photo!.urls.full,
-            small: photo!.urls.small,
-            regular: photo!.urls.regular,
-            raw: photo!.urls.raw,
-          },
-          user: photo!.user,
-          description: photo!.description || undefined,
-          alt_description: photo!.alt_description || undefined,
-          likes: photo!.likes,
-          width: photo!.width,
-          height: photo!.height,
-        }));
-        if (photoRes) {
-          setResults(photoRes);
-          setLoading(false);
-        }
-      })
-      .catch(() => {
-        setError(true);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery]);
+    setLoading(false);
+
+    if (data?.results) {
+      dispatch(updateSearchResults(data?.results));
+      setError(false);
+    }
+  }, [keyword, data, dispatch]);
 
   return (
     <>
@@ -82,10 +61,10 @@ export default function SearchResults(props: { searchQuery: string }) {
       {error && <Error />}
       {!error && !loading && (
         <div className="cards-container">
-          {results.length ? (
-            results.map((photo) => <Card key={photo.id} photo={photo} />)
+          {data ? (
+            data?.results!.map((photo) => <Card key={photo.id} photo={photo} />)
           ) : (
-            <p>0 results</p>
+            <p>0 results. Please, try to search for another word.</p>
           )}
         </div>
       )}

@@ -5,10 +5,10 @@ import './App.css';
 
 const App = () => {
   return (
-    <div>
+    <>
       <Header />
       <Outlet />
-    </div>
+    </>
   );
 };
 

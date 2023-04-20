@@ -1,4 +1,7 @@
 export interface IPhoto {
+  created_at?: Date;
+  updated_at?: Date;
+  promoted_at?: Date;
   id: string;
   width: number;
   height: number;
